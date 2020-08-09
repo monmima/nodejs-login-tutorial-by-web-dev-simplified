@@ -1,5 +1,11 @@
 const express = require("express");
 const app = express();
+const bcrypt = require("bcrypt");
+
+/**
+ * Normally, you would use a database instead.
+ */
+const users = [];
 
 app.set("view-engine", "ejs");
 
@@ -24,8 +30,29 @@ app.get("/register", (req, res) => {
     res.render("register.ejs");
 });
 
-app.post("/register", (req, res) => {
-    
+app.post("/register", async (req, res) => {
+    try {
+        const hashedPassword = await bcrypt.hash(req.body.password, 10);
+        users.push({
+            /**
+             * With a database, this would be automatically generated so you wouldn't have to worry about this step.
+             */
+            id: Date.now().toString(),
+            name: req.body.name,
+            email: req.body.email,
+            password: hashedPassword
+        });
+        /**
+         * So the user can login with the account he's just registered.
+         */
+        res.redirect("/login");
+    } catch {
+        /**
+         * In case of an error, redirects the user to the /register page.
+         */
+        res.redirect("/register");
+    }
+    console.log(users);
 });
 
 
