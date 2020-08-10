@@ -12,4 +12,4 @@ To start the project:
 To run the project:
 - npm run devStart
 
-Now at 00:20:01  in the tutorial.
+Now at 00:33:33  in the tutorial.
