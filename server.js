@@ -11,6 +11,10 @@ const bcrypt = require("bcrypt");
 const passport = require("passport");
 const flash = require("express-flash");
 const session = require("express-session");
+/**
+ * This will allow us to override our method that we're using. So instead of using POST, we can call this DELETE method here.
+ */
+const methodOverride = require("method-override");
 
 const initializePassport = require("./passport-config");
 
@@ -51,6 +55,7 @@ app.use(passport.initialize());
  * To store the variables to be persisted across the entire session our user has.
  */
 app.use(passport.session());
+app.use(methodOverride("_method"));
 
 app.get("/", checkAuthenticated, (req, res) => {
     res.render("index.ejs", { name: req.user.name });
@@ -99,6 +104,11 @@ app.post("/register", checkNotAuthenticated, async (req, res) => {
         res.redirect("/register");
     }
     console.log(users);
+});
+
+app.delete("/logout", (req, res) => {
+    req.logOut();
+    res.redirect("/login");
 });
 
 function checkAuthenticated(req, res, next) {

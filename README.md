@@ -6,10 +6,8 @@ Tutorial by [Web Dev Simplified](https://www.youtube.com/watch?v=-RCnNyD0L-s).
 
 To start the project:
 - npm init -y
-- npm i express ejs bcrypt passport passport-local express-session express-flash
+- npm i express ejs bcrypt passport passport-local express-session express-flash method-override
 - npm i --save-dev nodemon dotenv
 
 To run the project:
 - npm run devStart
-
-Now at 00:33:33  in the tutorial.
